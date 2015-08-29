@@ -4,6 +4,9 @@ module.exports = {
     var nodeParser = function (node, indent) {
       if (!node.name && !node.id && !node.classes.length) { return ''; }
       var output = '';
+      if (!node.name) {
+        node.name = 'div';
+      }
       if (typeof indent === 'undefined') {
         indent = 0;
       }
