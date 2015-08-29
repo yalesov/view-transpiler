@@ -2,7 +2,7 @@ module.exports = {
   compile: function (tree) {
     var result = '';
     var nodeParser = function (node, indent) {
-      if (!node.name) { return ''; }
+      if (!node.name && !node.id && !node.classes.length) { return ''; }
       var output = '';
       if (typeof indent === 'undefined') {
         indent = 0;
@@ -11,6 +11,12 @@ module.exports = {
         output += ' ';
       }
       output += node.name
+      if (node.id) {
+        output += '#' + node.id;
+      }
+      for (var i = 0; i < node.classes.length; i++) {
+        output += '.' + node.classes[i];
+      }
       if (node.content && node.content.trim().length > 0) {
         output += ' ' + node.content.trim();
       }

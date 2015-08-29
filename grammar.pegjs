@@ -54,13 +54,23 @@ nodeType =
 
 tag =
   name:identifier?
+  id:id?
+  classes:classes?
   content:textUntilEOL?
   {
     return {
       name: name,
-      content:content
+      content: content,
+      id: id,
+      classes: classes
     };
   }
+
+id =
+  '#' id:identifier { return id; }
+
+classes =
+  ('.' klass:identifier { return klass; })*
 
 // basic rules
 
