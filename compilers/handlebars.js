@@ -24,6 +24,18 @@ module.exports = {
         }
         output += '"';
       }
+      if (node.attrs && node.attrs.length) {
+        output += ' ';
+        for (var i = 0; i < node.attrs.length; i++) {
+          if (i !== 0) {
+            output += ' ';
+          }
+          output += node.attrs[i].name;
+          if (node.attrs[i].value !== null) {
+            output += '=' + node.attrs[i].value;
+          }
+        }
+      }
       output += '>' + "\n";
       if (node.content && node.content.trim().length > 0) {
         for (var i = 0; i < indent + 2; i++) {

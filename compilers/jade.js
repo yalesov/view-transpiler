@@ -22,6 +22,19 @@ module.exports = {
       for (var i = 0; i < node.classes.length; i++) {
         output += '.' + node.classes[i];
       }
+      if (node.attrs && node.attrs.length) {
+        output += '(';
+        for (var i = 0; i < node.attrs.length; i++) {
+          if (i !== 0) {
+            output += ', ';
+          }
+          output += node.attrs[i].name;
+          if (node.attrs[i].value !== null) {
+            output += '=' + node.attrs[i].value;
+          }
+        }
+        output += ')';
+      }
       if (node.content && node.content.trim().length > 0) {
         output += ' ' + node.content.trim();
       }

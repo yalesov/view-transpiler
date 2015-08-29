@@ -56,12 +56,14 @@ tag =
   name:identifier?
   id:id?
   classes:classes?
+  attrs:attrs?
   content:(whitespace+ c:textUntilEOL { return c; })?
   {
     return {
       name: name,
       id: id,
       classes: classes,
+      attrs: attrs,
       content: content
     };
   }
@@ -72,12 +74,47 @@ id =
 classes =
   ('.' klass:identifier { return klass; })*
 
+attrs =
+  '()' { return []; }
+  /
+  '('
+  newlineToken* whitespace*
+  firstAttr:attr
+  nextAttrs:(attrSeparator newlineToken* whitespace* attr:attr { return attr; })*
+  ')'
+  { return [firstAttr].concat(nextAttrs); }
+
+attrSeparator =
+  [, \t\r\n]+
+
+attr =
+  name:identifier
+  '='
+  value:quotedString & ( ')' / attrSeparator )
+  { return { name: name, value: value }; }
+  /
+  name:identifier
+  '='
+  value:[^, \t\r\n\(\)]+ & ( ')' / attrSeparator )
+  { return { name: name, value: value.join('') }; }
+  /
+  name:identifier
+  & ( ')' / attrSeparator )
+  { return { name: name, value: null }; }
+
 // basic rules
 
 identifier =
   firstChar: [a-zA-Z]
-  nextChars: [a-zA-Z0-9_-]*
+  nextChars: [a-zA-Z0-9:_-]*
   { return firstChar + nextChars.join(''); }
+
+quotedString =
+  "'" data:( [^'])* "'"
+  { return "'" + data.join('') + "'"; }
+  /
+  '"' data:( [^"])* '"'
+  { return '"' + data.join('') + '"'; }
 
 blankLine =
   whitespace* & (newline)
