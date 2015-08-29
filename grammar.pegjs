@@ -60,9 +60,9 @@ tag =
   {
     return {
       name: name,
-      content: content,
       id: id,
-      classes: classes
+      classes: classes,
+      content: content
     };
   }
 
