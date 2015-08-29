@@ -56,7 +56,7 @@ tag =
   name:identifier?
   id:id?
   classes:classes?
-  content:textUntilEOL?
+  content:(whitespace+ c:textUntilEOL { return c; })?
   {
     return {
       name: name,
