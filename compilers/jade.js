@@ -13,7 +13,7 @@ module.exports = {
       for (var i = 0; i < indent; i++) {
         output += ' ';
       }
-      if (node.name !== 'div') {
+      if (node.name !== 'div' || (!node.id && !node.class)) {
         output += node.name
       }
       if (node.id) {
