@@ -54,9 +54,11 @@ nodeType =
 
 tag =
   name:identifier?
+  content:textUntilEOL?
   {
     return {
-      name: name
+      name: name,
+      content:content
     };
   }
 
@@ -79,6 +81,9 @@ newlineToken =
 
 whitespace =
   [ \t] { /* do nothing */ }
+
+textUntilEOL =
+  text: [^\r\n]+ { return text.join(''); }
 
 indents =
   tabs: "\t"+ & {

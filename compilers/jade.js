@@ -10,7 +10,11 @@ module.exports = {
       for (var i = 0; i < indent; i++) {
         output += ' ';
       }
-      output += node.name + "\n";
+      output += node.name
+      if (node.content && node.content.trim().length > 0) {
+        output += ' ' + node.content.trim();
+      }
+      output += "\n";
       node.children.forEach(function (childNode) {
         output += nodeParser(childNode, indent + 2);
       });

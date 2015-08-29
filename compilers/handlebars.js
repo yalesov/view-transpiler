@@ -11,6 +11,12 @@ module.exports = {
         output += ' ';
       }
       output += '<' + node.name + '>' + "\n";
+      if (node.content && node.content.trim().length > 0) {
+        for (var i = 0; i < indent + 2; i++) {
+          output += ' ';
+        }
+        output += node.content.trim() + "\n";
+      }
       node.children.forEach(function (childNode) {
         output += nodeParser(childNode, indent + 2) + "\n";
       });
