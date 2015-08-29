@@ -13,7 +13,9 @@ module.exports = {
       for (var i = 0; i < indent; i++) {
         output += ' ';
       }
-      output += node.name
+      if (node.name !== 'div') {
+        output += node.name
+      }
       if (node.id) {
         output += '#' + node.id;
       }
