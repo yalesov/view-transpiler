@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "coffee-script": "^1.9.3",
+    "lodash": "^3.10.1",
     "pegjs": "^0.8.0"
   },
   "devDependencies": {},
