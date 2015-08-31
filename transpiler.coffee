@@ -1,7 +1,10 @@
 _ = require 'lodash'
+fs = require 'fs'
+parser = require './parser'
 
 class Transpiler
-  compile: (tree) ->
+  compile: (filepath) ->
+    tree = parser.parse fs.readFileSync(filepath).toString()
     _.map(tree.nodes, @nodeParser).join('').trim()
 
   nodeParser: (node, indent = 0) ->
