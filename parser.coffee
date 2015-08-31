@@ -1,5 +1,7 @@
 pegjs = require 'pegjs'
 fs = require 'fs'
-parser = pegjs.buildParser fs.readFileSync('./grammar.pegjs').toString()
+path = require 'path'
+grammar = fs.readFileSync(path.join __dirname ,'grammar.pegjs').toString()
+parser = pegjs.buildParser grammar
 
 module.exports = parser
