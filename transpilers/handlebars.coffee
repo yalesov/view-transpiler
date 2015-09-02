@@ -2,6 +2,8 @@ Transpiler = require '../transpiler'
 _ = require 'lodash'
 
 class Handlebars extends Transpiler
+  ext: 'hbs'
+
   nodeParser: (node, indent = 0) =>
     return '' unless super node, indent
 

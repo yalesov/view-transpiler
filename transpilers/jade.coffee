@@ -2,6 +2,8 @@ Transpiler = require '../transpiler'
 _ = require 'lodash'
 
 class Jade extends Transpiler
+  ext: 'jade'
+
   nodeParser: (node, indent = 0) =>
     return '' unless super node, indent
 
