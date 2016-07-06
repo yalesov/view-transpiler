@@ -21,11 +21,14 @@ Handlebars.prototype.nodeParser = function (node, indent) {
   // indent
   output += _.repeat(' ', indent)
 
+  // comment open
+  if (node.comment) output += node.display ? '<!-- ' : '{{! '
+
   // opening tag open
-  output += '<'
+  if (!node.comment) output += '<'
 
   // tag name
-  output += node.name
+  if (!node.comment) output += node.name
 
   // id
   if (node.id) output += ' id="' + node.id + '"'
@@ -44,13 +47,14 @@ Handlebars.prototype.nodeParser = function (node, indent) {
   }
 
   // opening tag close
-  output += ">\n"
+  if (!node.comment) output += ">\n"
 
   // content
   if (node.content && node.content.trim().length) {
     // add one more indent level
-    output += _.repeat(' ', indent + 2)
-    output += node.content.trim() + "\n"
+    if (!node.comment) output += _.repeat(' ', indent + 2)
+    output += node.content.trim()
+    if (!node.comment) output += "\n"
   }
 
   // children
@@ -59,10 +63,13 @@ Handlebars.prototype.nodeParser = function (node, indent) {
   }).join('')
 
   // indent
-  output += _.repeat(' ', indent)
+  if (!node.comment) output += _.repeat(' ', indent)
 
   // closing tag
-  output += '</' + node.name + '>'
+  if (!node.comment) output += '</' + node.name + '>'
+
+  // comment close
+  if (node.comment) output += node.display ? ' -->' : ' }}'
 
   return output
 }

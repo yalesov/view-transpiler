@@ -50,7 +50,23 @@ childNode =
   { return child; }
 
 nodeType =
+  comment
+  /
   tag
+
+comment =
+  identifier: commentIdentifier
+  content: (whitespace+ c:textUntilEOL { return c; })?
+  {
+    return {
+      comment: true,
+      display: identifier[1] === '-',
+      content: content
+    };
+  }
+
+commentIdentifier =
+  '/''-'?
 
 tag =
   name:identifier?

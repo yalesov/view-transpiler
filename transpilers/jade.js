@@ -21,9 +21,12 @@ Jade.prototype.nodeParser = function (node, indent) {
   // indent
   output += _.repeat(' ', indent)
 
+  // comment marker
+  if (node.comment) output += node.display ? '//' : '//-'
+
   // tag name
-  if (node.name !== 'div' ||
-    (!node.id && (!node.classes || !node.classes.length))) {
+  if (!node.comment &&
+    (node.name !== 'div' || (!node.id && (!node.classes || !node.classes.length)))) {
     output += node.name
   }
 

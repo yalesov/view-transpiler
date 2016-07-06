@@ -11,7 +11,11 @@ Transpiler.prototype.compile = function (filepath) {
 
 Transpiler.prototype.nodeParser = function (node, indent) {
   if (!indent) indent = 0
-  if (!node.name && !node.id && (!node.classes || !node.classes.length)) return false
+  if (!node.name
+    && !node.id
+    && (!node.classes || !node.classes.length)
+    && !node.comment
+  ) return false
   if (!node.name) node.name = 'div'
   return true
 }
