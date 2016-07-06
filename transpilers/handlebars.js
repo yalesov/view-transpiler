@@ -49,8 +49,8 @@ Handlebars.prototype.nodeParser = function (node, indent) {
   // content
   if (node.content && node.content.trim().length) {
     // add one more indent level
-    output += _.repeat(' ', indent)
-    output += ' ' + node.content.trim() + "\n"
+    output += _.repeat(' ', indent + 2)
+    output += node.content.trim() + "\n"
   }
 
   // children
